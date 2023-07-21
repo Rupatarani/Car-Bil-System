@@ -1,0 +1,100 @@
+@Entity
+public class Car {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String make;
+    private String model;
+    private int year;
+    private double price;
+    
+    // Constructors, getters, setters, and other properties
+}
+public interface CarRepository extends JpaRepository<Car, Long> {
+    // Additional custom query methods can be added here.
+}
+@Service
+public class CarService {
+    private CarRepository carRepository;
+
+    @Autowired
+    public CarService(CarRepository carRepository) {
+        this.carRepository = carRepository;
+    }
+
+    public List<Car> getAllCars() {
+        // Implement logic to retrieve all cars from the database.
+        // Return a list of Car objects.
+    }
+
+    public Car getCarById(Long carId) {
+        // Implement logic to retrieve a car by its ID from the database.
+        // Return a Car object or null if the car does not exist.
+    }
+
+    public Car createCar(Car car) {
+        // Implement logic to create a new car and save it to the database.
+        // Return the newly created Car object.
+    }
+
+    public Car updateCar(Long carId, Car updatedCar) {
+        // Implement logic to update an existing car with new information.
+        // Return the updated Car object or null if the car does not exist.
+    }
+
+    public boolean deleteCar(Long carId) {
+        // Implement logic to delete a car by its ID from the database.
+        // Return true if the car is deleted successfully, false otherwise.
+    }
+}
+@RestController
+@RequestMapping("/api/cars")
+public class CarController {
+    private CarService carService;
+
+    @Autowired
+    public CarController(CarService carService) {
+        this.carService = carService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Car>> getAllCars() {
+        // Implement endpoint to retrieve all cars.
+        // Use CarService to get all cars and handle any exceptions.
+        // Return a list of cars as the response.
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Car> getCarById(@PathVariable Long id) {
+        // Implement endpoint to retrieve a car by its ID.
+        // Use CarService to get the car by ID and handle any exceptions.
+        // Return the Car object as the response.
+    }
+
+    @PostMapping
+    public ResponseEntity<Car> createCar(@RequestBody Car car) {
+        // Implement endpoint to create a new car.
+        // Use CarService to create the car and handle any exceptions.
+        // Return the newly created Car object as the response.
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Car> updateCar(@PathVariable Long id, @RequestBody Car updatedCar) {
+        // Implement endpoint to update an existing car.
+        // Use CarService to update the car and handle any exceptions.
+        // Return the updated Car object as the response.
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCar(@PathVariable Long id) {
+        // Implement endpoint to delete a car by its ID.
+        // Use CarService to delete the car and handle any exceptions.
+        // Return an appropriate response based on the result.
+    }
+}
+@SpringBootApplication
+public class CarBillSystemApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(CarBillSystemApplication.class, args);
+    }
+}
